@@ -15,9 +15,16 @@ function padZero(num){
     var stnum = num.toString();
     return String(stnum).padStart(2,'0');
 }
-// Run a standard minute/second/hundredths timer:
+// Run a standard minute/second/hundredths timer:\
+function stopTimer(){
+    clearInterval(idTime);
+    clearInterval(idComplete);
+    console.log("hiuufasdfa");
+    testArea.removeEventListener("input", completed);
+    testArea.removeEventListener("keydown", startTimer, {once: true});
+}
 function clearTimer(){
-    return "00:00:00";
+    theTimer.innerHTML = "00:00:00";
 }
 function startTimer(){
     time = new Date("January 1 1898, 00:00:00");
@@ -36,6 +43,12 @@ function setTimer(time){
     
 }
 
+function startOver(){
+    updateInput = "";
+    testArea.value = "";
+    testArea.addEventListener("keydown", startTimer, {once: true});
+    testArea.addEventListener("input", completed);
+}
 
 // Match the text entered with the provided text on the page:
 function updateInput(e){
@@ -44,14 +57,13 @@ function updateInput(e){
 testArea.addEventListener("input", updateInput);
 testArea.addEventListener("keydown", startTimer, {once: true});
 testArea.addEventListener("input", completed);
+resetButton.addEventListener("click", startOver);
 
+testArea
 
 function completed(){
     if(userInput == originText){
-    clearInterval(idTime);
-    clearInterval(idComplete);
-    console.log("hiuufasdfa");
-    testArea.removeEventListener("input", completed);
+        stopTimer();
     }
 }
 
